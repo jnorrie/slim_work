@@ -3,12 +3,15 @@ require 'vendor/autoload.php';
 require 'bootstrap.php';
 
 use Chatter\Models\Message;
+use Chatter\Middleware\Authentication as ChatterAuth;
 
 $app = new \Slim\App();
+$app->add(new ChatterAuth);
 
-$app->get('/', function($request, $response, $next){
+$app->get('/api', function($request, $response, $next){
 	return $response->write('Hi. Welcome to my SLIM API');
 });
+
 
 $app->get('/messages', function($request, $response, $next){
 							$message = new Message();
